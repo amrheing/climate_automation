@@ -30,6 +30,7 @@
 # Next goals:
 # - implementation of holiday, maybe from a calendar
 # - different temperature decrease when windows get opened
+# - use of an outside temperature to reduce or switch the heating profile
 #
 #
 # Service Data in Automations are:
