@@ -1,5 +1,4 @@
-[![license](https://img.shields.io/github/license/amrheing/climate_automation.svg?style=flat)](https://github.com/amrheing/climate-automation/blob/master/LICENSE)
-
+https://img.shields.io/github/issues/amrheing/climate_automation
 
 # climate_automation
 
