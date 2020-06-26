@@ -38,10 +38,10 @@ With debug mode you get a lot of information about the checks
 
 ## Next goals
 
-implement an outside temperature sensor to manage the global on / off state
-flexible decission what to do when windows are open
-holiday mode based on calender
-thermostast presets and integration of the danfoss zwave thermostat
+- implement an outside temperature sensor to manage the global on / off state
+- flexible decission what to do when windows are open
+- holiday mode based on calender
+- thermostast presets and integration of the danfoss zwave thermostat
 
 ## Installation
 
