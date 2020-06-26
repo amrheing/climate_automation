@@ -26,9 +26,9 @@ All service data has to be set bei number, time or boolean helpers in HA.
 
 The script is tested with the "Eurotronics Spirit zwave" Thermostats.
 
-1) If one On/Off switch is off or the one window is open: `hvac_mode`will be `off`
+1) If one On/Off switch is off or one window is open: `hvac_mode`will be `off`
 2) If not in a time schedule or precense is away: `preset_mode` will be `Heat Eco`
-3) If in time_schdule or party mode is on: `preset_mode` will be `heat`
+3) If in time_schedule or party mode is on: `preset_mode` will be `heat`
 
 When setting the `hvac_mode`also the temperature is set
 
@@ -45,7 +45,9 @@ With debug mode you get a lot of information about the checks
 
 ## Installation
 
-put this file in your "python_scripts" folder in HomeAssistant /config, reload the scripts and create the automation rule
+- put this file in your "python_scripts" folder in HomeAssistant /config
+- reload the scripts
+- create the automation rule
 
 ## Konfiguration
 
