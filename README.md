@@ -2,11 +2,11 @@
 <a href="https://github.com/amrheing/climate_automation/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/amrheing/climate_automation"></a>
 <a href="https://github.com/amrheing/climate_automation/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/amrheing/climate_automation"></a>
 
-# climate_automation
+# climate_automation.py 
 
 This python_script is for use in HomeAssistant
 
-## Features:
+## Features
 - multiple Thermostats per room
 - multiple Window sensors
 - multiple On / Off Switches
@@ -21,7 +21,8 @@ This python_script is for use in HomeAssistant
 - much debug code
 - switch debug on / off
 
-The overall goal of the script is no data in the script. All service data has to be set bei number, time od boolean helpers in HA.
+The overall goal of the script is no data in the script. 
+All service data has to be set bei number, time or boolean helpers in HA.
 
 The script is tested with the "Eurotronics Spirit zwave" Thermostats.
 
@@ -35,18 +36,18 @@ The script checks always the actual settings to decrease network actions
 
 With debug mode you get a lot of information about the checks 
 
-## next goals
+## Next goals
 
 implement an outside temperature sensor to manage the global on / off state
 flexible decission what to do when windows are open
 holiday mode based on calender
 thermostast presets and integration of the danfoss zwave thermostat
 
-## Installation:
+## Installation
 
 put this file in your "python_scripts" folder in HomeAssistant /config, reload the scripts and create the automation rule
 
-## Konfiguration.
+## Konfiguration
 
 | Name                    | Required  | Description                                                      |
 | ----------------------- | --------- | ---------------------------------------------------------------- |
@@ -66,8 +67,7 @@ put this file in your "python_scripts" folder in HomeAssistant /config, reload t
 | schedule2_end           | False     | End time of heating schedule 2                                   |
 
 
-You need to create an automation.
-
+## HomeAssistant Automation
 
 ```yaml
 - id: 0123456789
