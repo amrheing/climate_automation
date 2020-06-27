@@ -80,7 +80,7 @@ With debug mode you get a lot of information about the checks
       platform: time_pattern
     - entity_id: input_boolean.climate_on
       platform: state
-    - entity_id: nput_boolean.climate_office_on_off
+    - entity_id: input_boolean.climate_office_on_off
       platform: state
   condition: []
   action:
