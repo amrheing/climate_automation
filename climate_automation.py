@@ -17,7 +17,8 @@ def ld(msg, *args):
 
 ld("Start climate_automation Entwicklung")
 	
-live = False
+# Set this to False to deactivate the service calls - only for extrem debugging
+live = True
 
 # Defaults
 DEFAULT_ECO = 16
