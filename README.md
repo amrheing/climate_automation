@@ -71,8 +71,8 @@ With debug mode you get a lot of information about the checks
 
 ## Helper Configuration
 
-the script is able to get a very fine tuned time scheduling input.
-to check the input please configure the input_text helpers with this regex validation string
+The script is able to get a very fine tuned time scheduling input.
+To check the input please configure the input_text helpers with this regex validation string
 
 ([0-9]{1,2}(:[0-9]{2})?-[0-9]{1,2}(:[0-9]{2})?[,]?)*
 
@@ -80,8 +80,8 @@ That make the folowing possible:
 
 8-10,10:30-17,18:25-23:59
 
-Every scheduling is a block "from"-"to"
-Many blocks can be set by seperating by a colon ",".
+Every scheduling is a block: "from"-"to"
+Many blocks can be set by seperating by a colon ","
 
 
 ## HomeAssistant Automation
