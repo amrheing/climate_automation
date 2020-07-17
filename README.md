@@ -69,6 +69,8 @@ With debug mode you get a lot of information about the checks
 | schedule_sunday         | False     | Time Pattern for scheduling Sundays                              |
 | schedule_weekdays       | False     | Time Pattern for scheduling Weekdays                             |
 
+If you do not give a time schedule it is always in time.
+
 ## Helper Configuration
 
 The script is able to get a very fine tuned time scheduling input.
