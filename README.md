@@ -120,7 +120,7 @@ Many blocks can be set by seperated by a colon ","
           - input_boolean.climate_office_on_off
         use_eco_global: input_boolean.climate_office_use_global_eco
         windows:
-        - binary_sensor.window_office_left
-        - binary_sensor.window_office_right
+          - binary_sensor.window_office_left
+          - binary_sensor.window_office_right
       service: python_script.climate_automation
 ```
