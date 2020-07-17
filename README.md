@@ -51,7 +51,7 @@ With debug mode you get a lot of information about the checks
 - reload the scripts
 - create the automation rule
 
-## Konfiguration
+## Configuration
 
 | Name                    | Required  | Description                                                      |
 | ----------------------- | --------- | ---------------------------------------------------------------- |
