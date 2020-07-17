@@ -76,7 +76,7 @@ To check the input please configure the input_text helpers with this regex valid
 
 ([0-9]{1,2}(:[0-9]{2})?-[0-9]{1,2}(:[0-9]{2})?[,]?)*
 
-That make the folowing possible:
+That make the following inputs possible:
 
 8-10,10:30-17,18:25-23:59
 
