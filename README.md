@@ -80,8 +80,8 @@ That make the following inputs possible:
 
 8-10,10:30-17,18:25-23:59
 
-Every scheduling is a block: "from"-"to"
-Many blocks can be set by seperating by a colon ","
+Every scheduling is a block: "from"-"to".
+Many blocks can be set by seperated by a colon ","
 
 
 ## HomeAssistant Automation
