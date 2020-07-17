@@ -2,6 +2,8 @@
 <a href="https://github.com/amrheing/climate_automation/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/amrheing/climate_automation"></a>
 <a href="https://github.com/amrheing/climate_automation/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/amrheing/climate_automation"></a>
 
+NEW: flexible time schedules for weekdays, saturdays and sundays
+
 # climate_automation.py 
 
 This python_script is for use in HomeAssistant
@@ -16,13 +18,13 @@ This python_script is for use in HomeAssistant
 - all service data is given as helper objects in HA
   - input_number
   - input_boolean
-  - input_datetime
+  - input_text
 - validation of service data
 - much debug code
 - switch debug on / off
 
 The overall goal of the script is no data in the script. 
-All service data has to be set bei number, time or boolean helpers in HA.
+All service data has to be set bei number, text or boolean helpers in HA.
 
 The script is tested with the "Eurotronics Spirit zwave" Thermostats.
 
@@ -63,10 +65,23 @@ With debug mode you get a lot of information about the checks
 | comfort_temperature     | False     | the rooms comfort temperature - default: 22                      |
 | party_mode              | False     | switch on party mode, disables time scheduling - default: OFF    |
 | windows                 | False     | Window open sensors - Default: Closed                            |
-| schedule1_start         | False     | Start time of heating schedule 1                                 |
-| schedule1_end           | False     | End time of heating schedule 1                                   |
-| schedule2_start         | False     | Start time of heating schedule 2                                 |
-| schedule2_end           | False     | End time of heating schedule 2                                   |
+| schedule_saturday       | False     | Time Pattern for scheduling Saturdays                            |
+| schedule_sunday         | False     | Time Pattern for scheduling Sundays                              |
+| schedule_weekdays       | False     | Time Pattern for scheduling Weekdays                             |
+
+## Helper Configuration
+
+the script is able to get a very fine tuned time scheduling input.
+to check the input please configure the input_text helpers with this regex validation string
+
+([0-9]{1,2}(:[0-9]{2})?-[0-9]{1,2}(:[0-9]{2})?[,]?)*
+
+That make the folowing possible:
+
+8-10,10:30-17,18:25-23:59
+
+Every scheduling is a block "from"-"to"
+Many blocks can be set by seperating by a colon ",".
 
 
 ## HomeAssistant Automation
@@ -93,10 +108,9 @@ With debug mode you get a lot of information about the checks
         entity_ids:
           - climate.thermostat_office_left
           - climate.thermostat_office_right
-        schedule1_end: input_datetime.climate_office_schedule1_end
-        schedule1_start: input_datetime.climate_office_schedule1_start
-        schedule2_end: input_datetime.climate_office_schedule2_end
-        schedule2_start: input_datetime.climate_office_schedule2_start
+        schedule_saturday: input_text.climate_office_saturday
+        schedule_sunday: input_text.climate_office_sunday
+        schedule_weekdays: input_text.climate_office_weekdays
         sensors_presence:
           - input_boolean.home_mode
         switches_on_off:
