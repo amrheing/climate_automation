@@ -17,7 +17,6 @@ def ld(msg, *args):
 
 ld("Start climate_automation Entwicklung")
 	
-# Set this to False to deactivate the service calls - only for extrem debugging
 live = True
 
 # Defaults
@@ -36,6 +35,7 @@ DEFAULT_IN_TIME = False
 
 # Attributes 
 CLIMATE_HVAC_MODES = "hvac_modes"
+CLIMATE_HVAC_MODE = "hvac_mode"
 CLIMATE_MIN_TEMP = "min_temp"
 CLIMATE_MAX_TEMP = "max_temp"
 CLIMATE_PRESET_MODES = "preset_modes"
@@ -253,6 +253,7 @@ def service_data(entity):
 ##########################################################################################			 
 # set thermostat off only if not current to reduce commands
 def call_climate_off():
+	func = "call_climate_off"
 	ld("+ Current state: %s - Current HVAC Mode: %s", current_preset, current_state)
 	if current_state != HVAC_MODE_OFF:
 		try:
@@ -261,7 +262,7 @@ def call_climate_off():
 			if live == True:
 				hass.services.call(DOMAIN, SERVICE_TURN_OFF, SERVICE_DATA, False)
 		except:
-			ld("- Set climate off fails")
+			ld("- %s - Set climate off fails", func)
 	else:
 		ld("- No need to change the hvac mode")
 	
@@ -269,19 +270,21 @@ def call_climate_off():
 # set climate to comfort and set comfort temperature
 # this function use the temperature as parameter to avoid global data for that purpose
 def call_climate_comfort(comfort_temperature):
+	func = "call_climate_comfort"
 	# turn climate on only if not current to reduce commands
 	ld("+ Current state: %s - Current HVAC Mode: %s", current_preset, current_state)
 	try:
-		if current_state != HVAC_MODE_HEAT:
+		if current_state == HVAC_MODE_OFF:
 			SERVICE_DATA = service_data(ENTITY_ID)
-			ld("- Set HVAC mode to %s on %s", SERVICE_TURN_ON, SERVICE_DATA)
+			SERVICE_DATA[CLIMATE_HVAC_MODE] = HVAC_MODE_HEAT
+			ld("- Set HVAC mode to %s on %s", HVAC_MODE_HEAT, SERVICE_DATA)
 			if live == True:
-				hass.services.call(DOMAIN, SERVICE_TURN_ON, SERVICE_DATA, False)
+				hass.services.call(DOMAIN, SERVICE_SET_HVAC_MODE, SERVICE_DATA, False)
 			time.sleep(3)
 		else:
 			ld("- No need to change the hvac mode")
 	except:
-		ld("- set hvac mode fails")
+		logger.info("- %s - set hvac mode fails on: %s", func, ENTITY_ID)
 		
 	# set preset only if not current to reduce commands
 	try:
@@ -295,7 +298,7 @@ def call_climate_comfort(comfort_temperature):
 		else:
 			ld("+ No need to change the preset mode")
 	except:
-		ld("- set preset mode fails")
+		logger.info("- %s - set preset mode fails on: %s", func, ENTITY_ID)
 		
 	# set temperature
 	try:
@@ -308,12 +311,13 @@ def call_climate_comfort(comfort_temperature):
 		else:
 			ld("+ No need to change the temperature setpoint")
 	except:
-		ld("- Set temperature setpoint fails")
+		logger.info("- %s - Set temperature setpoint fails on: %s", func, ENTITY_ID)
 
 ##########################################################################################
 # set climate to eco and st eco temperature
 # this function use the temperature as parameter to avoid global data for that purpose
 def call_climate_eco(eco_temperature):
+	func = "call_climate_eco"
 	ld("+ Current state: %s - Current HVAC Mode: %s", current_preset, current_state)
 	# turn climate on only if not current to reduce commands
 	#if current_state != HVAC_MODE_HEAT:
@@ -322,26 +326,26 @@ def call_climate_eco(eco_temperature):
 	try:
 		if current_preset != PRESET_MODE_ECO:
 			SERVICE_DATA = service_data(ENTITY_ID)
-			SERVICE_DATA[ATTR_PRESET_MODE] = PRESET_MODE_ECO
+			SERVICE_DATA[CLIMATE_PRESET_MODE] = PRESET_MODE_ECO
 			ld("+ Set preset_mode to eco - %s", SERVICE_DATA)
 			if live == True:
 				hass.services.call(DOMAIN, SERVICE_SET_PRESET_MODE, SERVICE_DATA, False)
 		else:
 			ld("+ No need to change the Preset Mode")
 	except:
-		ld("- Set the Preset mode fails")
+		logger.info("- %s - Set the Preset mode fails on: %s", func, ENTITY_ID)
 	# set temperature
 	try:
 		if current_setpoint != eco_temperature:
 			SERVICE_DATA = service_data(ENTITY_ID)
-			SERVICE_DATA[ATTR_TEMPERATURE] = float(eco_temperature)
+			SERVICE_DATA[CLIMATE_TEMPERATURE] = float(eco_temperature)
 			ld("+ Set temperature to eco - %s", SERVICE_DATA)
 			if live == True:
 				hass.services.call(DOMAIN, SERVICE_SET_TEMPERATURE, SERVICE_DATA, False)
 		else:
 			ld("+ No need to change the temperature setpoint")
 	except:
-		ld("- Set temperature setpoint fails")
+		logger.info("- %s - Set temperature setpoint fails on: %s", func, ENTITY_ID)
 			
 
 ##########################################################################################
@@ -386,12 +390,15 @@ except:
 	
 # which eco temperature should be used
 ld("### check use of global eco ###")
-if TEMPERATURE_USE_GLOBAL_ECO == SENSOR_ON:
-	ld("- Global Eco should be used")
-	ECO_SETPOINT = TEMPERATURE_ECO_GLOBAL
-else:
-	ld("- local eco will be used")
-	ECO_SETPOINT = TEMPERATURE_ECO
+try:
+	if TEMPERATURE_USE_GLOBAL_ECO == SENSOR_ON:
+		ld("- Global Eco should be used")
+		ECO_SETPOINT = TEMPERATURE_ECO_GLOBAL
+	else:
+		ld("- local eco will be used")
+		ECO_SETPOINT = TEMPERATURE_ECO
+except:
+	ECO_SETPOINT = DEFAULT_ECO
 
 ##########################################################################################
 #  Functions special for the climate ENTITY_ID                                           #
@@ -443,6 +450,9 @@ try:
 				ld("+ Slot: %s - Start: %s - End: %s", slot, start, end)
 				if is_time_between(now, start, end) == True:
 					IN_TIME = True
+		else:
+			IN_TIME = DEFAULT_IN_TIME
+			ld("IN_TIME status not set Schdule --> %s", IN_TIME)
 				
 		logger.info("\"%s\": --> Start Logic: ON/OFF: %s - WINDOW: %s - TIME: %s - PRESENCE: %s - PARTY: - %s", ENTITY_ID, SWITCH_ON_OFF, WINDOW_OPEN, IN_TIME, PRESENSE, SENSOR_PARTY_MODE)
 
