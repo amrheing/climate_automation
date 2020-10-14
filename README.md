@@ -6,7 +6,7 @@ NEW: flexible time schedules for weekdays, saturdays and sundays
 
 # That was my very first version.
 
-in my mind the climate_automation_spirit is the better one
+in my opinion the climate_automation_spirit is the better one
 
 https://github.com/amrheing/climate_automation_spirit
 
