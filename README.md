@@ -4,6 +4,10 @@
 
 NEW: flexible time schedules for weekdays, saturdays and sundays
 
+# That was my very first version.
+
+in my mind the climate_automation_spirit is the better one
+
 # climate_automation.py 
 
 This python_script is for use in HomeAssistant
